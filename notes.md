@@ -32,4 +32,10 @@ The last element becomes the first one.
 
 ### **rrr** : rra and rrb at the same time.
 
+## TODO
 
+- Handle memory allocation for both stacks at the same time
+- Better handle of syscall errors (malloc at least)
+- Create each operation function in operations.c
+- Makefile
+- Refine libft and delete unecessary functions
