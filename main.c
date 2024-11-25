@@ -15,41 +15,32 @@
 
 int	main(int ac, char **av)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	int		len;
-	int		i;
+	t_stack	*stack_a = {0};
+	t_stack	*stack_b = {0};
 
-	len = ac - 1;
-	stack_a = malloc(sizeof(t_stack));
-	if (!stack_a)
-	{
-		ft_putstr_fd("Memory allocation failed\n", 2);
-		return (-1);
-	}
-	stack_b = malloc(sizeof(t_stack));
 	if (ac < 2)
 	{
 		ft_putstr_fd("Error\n", 1);
 		return (-1);
 	}
-	stack_a->list = (int *)malloc(sizeof(int) * (len));
-	if (stack_a->list == NULL)
+	if (handle_memory_allocation(&stack_a, &stack_b, ac - 1) == FAILURE)
 	{
-		ft_putstr_fd("Memory allocation failed\n", 2);
 		return (-1);
 	}
-	i = 0;
-	while (len > 0)
+	if (fill_stack_list(stack_a->list, av, ac - 1) == FAILURE)
 	{
-		stack_a->list[i] = ft_atoi(av[len]);
-		len--;
-		i++;
+		free(stack_a->list);
+		free(stack_b->list);
+		free(stack_a);
+		free(stack_b);
+		ft_putstr_fd("Error\n", 2);
+		return (-1);
 	}
 	for (int j = 0; j < ac - 1; j++) {
 		printf("%d\n", stack_a->list[j]);
 	}
 	free(stack_a->list);
+	free(stack_b->list);
 	free(stack_a);
 	free(stack_b);
 	return (0);
