@@ -10,38 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
-#include <stdio.h>
 
 int	main(int ac, char **av)
 {
-	t_stack	*stack_a = {0};
-	t_stack	*stack_b = {0};
+	t_node *stack_a;
 
+    stack_a = NULL;
 	if (ac < 2)
 	{
-		ft_putstr_fd("Error\n", 1);
-		return (-1);
-	}
-	if (handle_memory_allocation(&stack_a, &stack_b, ac - 1) == FAILURE)
-	{
-		return (-1);
-	}
-	if (fill_stack_list(stack_a->list, av, ac - 1) == FAILURE)
-	{
-		free(stack_a->list);
-		free(stack_b->list);
-		free(stack_a);
-		free(stack_b);
 		ft_putstr_fd("Error\n", 2);
 		return (-1);
 	}
-	for (int j = 0; j < ac - 1; j++) {
-		printf("%d\n", stack_a->list[j]);
-	}
-	free(stack_a->list);
-	free(stack_b->list);
-	free(stack_a);
-	free(stack_b);
+    stack_a = init_stack(ac, av);
+    if (!stack_a)
+    {
+		ft_putstr_fd("Error\n", 2);
+		return (-1);
+    }
+    print_stack(stack_a);
+    clear_stack(&stack_a);    
 	return (0);
 }
